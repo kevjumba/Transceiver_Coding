@@ -1,0 +1,309 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class = "row">
+    <div class = "col-md-2">
+
+    </div>
+    <div class = "col-md-8">
+        <h4>Welcome!</h4>
+
+        <ul class = "nav nav-tabs" name = 'tab-bar'>
+			<li {% if not item or item == "4" %} class = "active" {% endif %}><a href = "#4" data-toggle="tab">Coding Screen</a></li>
+            <li {% if item == "2" %} class = "active" {% endif %}><a href = "#2" data-toggle="tab">Templates</a></li> 
+            <li {% if item == "1" %} class = "active" {% endif %}><a href = "#1" data-toggle="tab">Before Coding</a></li> 
+            <li {% if item == "3" %} class = "active" {% endif %}><a href = "#3" data-toggle="tab">New Code</a></li>
+            <li {% if item == "5" %} class = "active" {% endif %}><a href = "#5" data-toggle="tab">Write New Code and Read Back</a></li> 
+        </ul>
+        <div class = "tab-content">
+        <div class = "tab-pane {%if not item or item == '4' %} active {% endif %}" id = "4">
+            <form action = "/setup" method = "post">
+                <div class = "row">
+                    <div class = "col-lg-6 col-md-12">
+                        <h2 class = "text-center"><strong>Coding Screen</strong></h2>
+                    </div>
+                </div>
+                <div class = "row">
+                    <div class = "col-lg-1 col-md-2 col-sm-2">
+                        <br />
+                        <h4>Station ID:</h4>
+                    </div>
+                    <div class = "col-lg-2 col-md-4 col-sm-4">
+                        <br />
+                        <select name = 'station_id' id ='station_id' class='form-control'>
+                            <option value = "id 1" {% if station_id == "id 1" %} selected {% endif %}>ID 1</option>
+                            <option value = "id 2" {% if station_id == "id 2" %} selected {% endif %}>ID 2</option>
+                            <option value = "id 3" {% if station_id == "id 3" %} selected {% endif %}>ID 3</option>
+                        </select>
+                    </div>
+
+                    <div class = "col-lg-1 col-md-2 col-sm-2">
+                        <br>
+                        <h4>Operator:</h4>
+                    </div>
+                    <div class = "col-lg-2 col-md-4 col-sm-4">
+                        <br />
+                        <input name = 'operator' id = 'operator' type="text" class="form-control" placeholder="Name" aria-describedby="basic-addon2">
+                    </div>
+                </div>
+                <div class = "row">
+                    <div class = "col-lg-2 col-md-3">
+                        <h4>Prolabs PO#:</h4>
+                    </div>
+                    <div class = "col-lg-4 col-md-9">
+                        <input name = 'po_number' id = 'po_number' type="text" class="form-control" placeholder="PO Number" aria-describedby="basic-addon2" style = "width: 100%">
+                    </div>
+                </div>
+                <div class = "row">
+                    <div class = "col-lg-2 col-md-3">
+                        <h4>Part Code:</h4>
+                    </div>
+                    <div class = "col-lg-4 col-md-9">
+                        <input name = 'part_code' id = 'part_code' type="text" class="form-control" placeholder="Part Code" aria-describedby="basic-addon2" style = "width: 100%">
+                    </div>
+                </div>
+                <div class = "row">
+                    <div class = "col-lg-2 col-md-3">
+                        <br />
+                        <h4>Password for Write: </h4>
+                    </div>
+                    <div class = "col-lg-4 col-md-9">
+                        <br />
+                        <input name = 'password' id = 'password' type="text" class="form-control" placeholder="Password" aria-describedby="basic-addon2">
+                    </div>
+                </div>
+                <div class = "row">
+                    <div class = "col-lg-2 col-md-3">
+                        <h4>Transceiver Status</h4>
+                    </div>
+                    <div class = "col-lg-4 col-md-9">
+                        <div class="alert alert-success">Tranceiver Online</div>
+                    </div>
+                </div>
+
+                <br />
+                <div class = "row">
+                    <div class = "col-lg-2 col-md-3">
+
+                    </div>
+                    <div class = "col-lg-4 col-md-9">
+                        <button type = "submit" class="btn btn-primary" style = "width: 100%">Code and Verify</button>
+                        <br /><br />
+                    </div>
+                </div>
+                <div class = "row">
+                    <div class = "col-lg-2 col-md-3">
+                        <h4>Coding Status:</h4>
+                    </div>
+                    <div class = "col-lg-4 col-md-9">
+                        {% if write_response == "True" %}
+                            <div class="alert alert-success">Verified</div>
+                        {% else %}
+                            <div class="alert alert-danger">Unverified</div>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class = "row">
+                    <div class = "col-lg-2">
+
+                    </div>
+                    <div class="col-lg-2">
+                        <div class="input-group">
+                          <span class="input-group-addon">
+                            <input name = "qa_mode" id = "qa_mode" type="checkbox" aria-label="Checkbox for following text input">
+                            <span class="label-text">QA Mode</span>
+                          </span>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <div class = "tab-pane {%if item == '1' %} active {% endif %}" id = "1">
+            <div class = "row">
+                    <div class = "col-md-12 col-lg-8">
+                        <h2 class = "text-center"><strong>EEPROM Data Before Coding</strong></h2>
+                    </div>
+                </div>
+            <form action = "/read_code" method = "post" enctype = "multipart/form-data">
+                <div class = "row">
+                    <div class = "col-md-1 col-lg-1">
+
+                    </div>
+                    <div class = "col-md-10 col-lg-6">
+                            <br /><br />
+                            <button type = "submit" class="btn btn-primary" style = "width: 100%">Read from Transceiver</button>
+
+                    </div>
+
+                </div>
+            </form>
+            <div class = "row">
+                <div class="col-md-1 col-lg-1"></div>
+                <div class = "col-md-10 col-lg-6">
+                    <br />
+                    <div class = "monospaced compressed well well-lg" style = "word-wrap: break-word; width: 100%">
+                    {% for line in read_codes.splitlines() %}
+                        {{ line }}<br />
+                    {% endfor %}
+                    <br /><br />
+                    {% for parse in parse_return2.splitlines() %}
+                        {{ parse }}<br />
+                    {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class = "tab-pane {%if item == '2' %} active {% endif %}" id = "2">
+            <form action = "/load_template" method = "POST">
+                <div class = "row">
+                    <div class = "col-md-12 col-md-6">
+                        <h2 class = "text-center"><strong>Template Data</strong></h2>
+                    </div>
+                </div>
+
+                <div class = "row">
+                    <div class="col-md-1 col-lg-1"></div>
+                    <div class="col-md-10 col-lg-5">
+                        <button type="submit" class="btn btn-primary" style = "width: 100%">Load Template</button>
+                    </div>
+                </div>
+            </form>
+            <div class = "row">
+                <div class="col-md-1 col-lg-1"></div>
+                <div class = "col-md-10 col-lg-5">
+                    <div class = "monospaced compressed well well-lg" style = "word-wrap: break-word; width: 100%">
+                        {% for line in hex_templates.splitlines() %}
+                            {{ line }}<br />
+                        {% endfor %}
+                        <br /><br />
+                        {% for parse in parse_return1.splitlines() %}
+                            {{ parse }}<br />
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class = "tab-pane {%if item == '3' %} active {% endif %}" id = "3">
+            <form action = '/make_new_code' method = 'post'>
+                <div class = "row">
+                    <div class = "col-md-12 col-lg-8">
+                        <h2 class = "text-center"><strong>New Code Data to be Written</strong></h2>
+                    </div>
+                </div>
+                <div class = "row">
+                    <div class = "col-md-3 col-lg-2">
+                        <br />
+                        <h4>Date Code: </h4>
+                    </div>
+                    <div class = "col-md-9 col-lg-6">
+                        <br />
+                        <select name = 'date' class="form-control">
+                            <option selected>Today</option>
+                            <option value="In Transceiver">In Transceiver</option>
+                            <option value="In Template">In Template</option>
+                        </select>
+                    </div>
+                </div>
+                <div class = "row">
+                    <div class = "col-md-3 col-lg-2">
+                        <br />
+                        <h4>Serial Number: </h4>
+                    </div>
+                    <div class = "col-md-9 col-lg-6">
+                        <br />
+                        <select name = 'serialnum' class="form-control">
+                            <option selected>In Transceiver</option>
+                            <option value="In Template">In Template</option>
+                        </select>
+                    </div>
+                </div>
+                <div class = "row">
+                    <div class = "col-md-3 col-lg-2">
+                        <br />
+                        <h4>Part Number: </h4>
+                    </div>
+                    <div class = "col-md-9 col-lg-6">
+                        <br />
+                        <select name = 'date' class="form-control">
+                            <option selected>A</option>
+                            <option value="In Transceiver">B</option>
+                            <option value="In Template">C</option>
+                        </select>
+                    </div>
+                </div>
+                <div class = "row">
+                    <div class="col-md-1 col-lg-0"></div>
+                    <div class="col-md-10 col-lg-6">
+                        <br /><br />
+                        <button type="submit" class="btn btn-primary" style = "width: 100%">Make New Code</button>
+                        <br /><br />
+                    </div>
+                </div>
+                <div class = "row">
+                    <div class="col-md-1 col-lg-0"></div>
+                    <div class = "col-md-10 col-lg-6">
+                        <div class = "monospaced compressed well well-lg" style = "word-wrap: break-word; width: 100%">
+                            {% for line in new_codes_hex.splitlines() %}
+                                {{ line }}<br />
+                            {% endfor %}
+                            <br /><br />
+                            {% for parse in parse_return3.splitlines() %}
+                                {{ parse }}<br />
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class = "tab-pane {%if item == '5' %} active {% endif %}" id = "5">
+            <form action = '/write_to_pi' method = 'post'>
+                <div class = "row">
+                    <div class = "col-md-12 col-lg-8">
+                        <h2 class = "text-center"><strong>Write Code and Read Back</strong></h2>
+                    </div>
+                </div>
+                <br>
+                <div class = "row">
+                    <div class="col-md-1 col-lg-0"></div>
+                    <div class="col-md-10 col-lg-6">
+                        <button type="submit" class="btn btn-primary" style = "width: 100%">Write and Read Back From Tranceiver</button>
+                        <br /><br />
+                    </div>
+                </div>
+                <div class = "row">
+                    <div class="col-md-1 col-lg-0"></div>
+                    <div class = "col-md-10 col-lg-6">
+                        <div class = "monospaced compressed well well-lg" style = "word-wrap: break-word; width: 100%">
+                            Changed:<br />
+                            {% for line in return_dict.splitlines() %}
+                                {{ line }}<br />
+                            {% endfor %}
+                            <br /><br />
+                            {% for parse in parse_return4.splitlines() %}
+                                {{ parse }}<br />
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+                <div class = "row">
+                    <div class = "col-md-1 col-lg-0"></div>
+                    <div class = "col-md-2 col-lg-2">
+                        <h4>Coding Status: </h4>
+                    </div>
+                    <div class = "col-md-8 col-lg-4">
+                        {% if write_response == "True" %}
+                            <div class="alert alert-success">Verified</div>
+                        {% else %}
+                            <div class="alert alert-danger">Unverified</div>
+                        {% endif %}
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    </div>
+
+
+</div>
+{% endblock %}

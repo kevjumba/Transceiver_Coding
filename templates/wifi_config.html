@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class = "row">
+    <div class = "col-md-2">
+
+    </div>
+    <div class = "col-md-8">
+        <h4>Welcome!</h4>
+    </div>
+
+</div>
+<div class = "row">
+	<form action = "/select_wifi" method = "post">
+		<div class = "row">
+			<div class = "col-md-2">
+			</div>
+			<div class = "col-md-2">	
+				<select class = "form-control" name="ap_info", class="wifiNetworkInputs">
+				{% for cell in wifi_list %}
+					<option>{{cell["Name"]}}</option>
+				{% endfor %}
+				</select>
+			</div>
+			 
+		</div>
+		<div class = "row">
+			<div class = "col-md-2">
+			</div>
+			<div class = "col-md-4">
+				<p>Password(if needed): </p></br>
+				<input type="password" name="psw">
+				<button type="submit" class="btn btn-primary" style = "width: 25%">Select</button>
+			</div>
+		</div>
+	</form>
+		
+
+</div>
+{% endblock %}

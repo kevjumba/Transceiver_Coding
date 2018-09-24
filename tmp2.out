@@ -1,0 +1,27 @@
+0X00  03 04 07 20 00 00 00 00  00 00 00 06 67 00 0A 64              g  d
+0X01  00 00 00 00 43 49 53 43  4F 2D 50 52 4F 4C 41 42      CISCO-PROLAB
+0X02  53 20 20 20 00 00 00 00  53 46 50 2D 31 30 47 2D  S       SFP-10G-
+0X03  4C 52 2D 43 20 20 20 20  00 00 00 00 05 1E 00 B6  LR-C            
+0X04  00 1A 00 00 41 36 35 39  33 34 33 36 20 20 20 20      A6593436    
+0X05  20 20 20 20 31 37 30 38  31 38 30 30 68 F0 03 85      17081800h   
+0X06  00 00 06 E6 75 B9 5F B5  BA D4 FD 5E 26 89 7E 75      u _    ^& ~u
+0X07  AC 54 65 00 00 00 00 00  00 00 00 00 55 0B 1F 7E   Te         U  ~
+
+Identifier (0x0): 03 = SFP/SFP+/SFP28
+Connector (0x2): 07 = LC
+Data Rate (0xc): 67 = 10.3Gbps
+Link Length SM (0xe): 0A = 10km
+Link Length SM (0xf): 64 = 10.0km
+Link Length MM OM2 (0x10): 00 = 0m
+Link Length MM OM1 (0x11): 00 = 0m
+Link Length MM OM4 (0x12): 00 = 0m
+Link Length MM OM3 (0x13): 00 = 0m
+Vendor Name (0x14-0x23): CISCO-PROLABS   
+Transceiver Code(0x24): 00
+Vendor OUI (0x25-0x27): 000000
+Part Number (0x28-0x37): SFP-10G-LR-C    
+Part Rev (0x38-0x3b):     
+Wavelength (0x3c-0x3d): 051E = 1310nm
+SN (0x44-0x53): A6593436        
+Date Code (0x54-0x5b): 17081800
+

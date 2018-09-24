@@ -1,0 +1,135 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class = "row">
+    <div class = "col-md-2">
+
+    </div>
+    <div class = "col-md-3">
+        <h4>Welcome!</h4>
+    </div>
+</div>
+<div class = "row">
+    <div class = "col-md-2">
+
+    </div>
+    <div class = "col-md-1">
+	    <p>Email</p>
+    </div>
+    <div class = "col-md-5">
+    <form action = "/check_connection" method = "post">
+		
+        <div class="input-group">
+            <input type="text" class = "form-control" name = "email" class="form-control" required>
+        </div>
+    </div>
+</div>
+<div class = "row">
+    <div class = "col-md-3">
+
+    </div>
+    <div class = "col-md-5">
+        <span><button class="btn btn-block" type = "submit">Check Connection</button></span>
+    </div>
+    </form>
+</div>
+<br/>
+{%if upload_user == "1" %}
+<div class = "row">
+    <div class = "col-md-3">
+
+    </div>
+    <div class = "col-md-5">
+        <form action = "/submit_file" method = "post" enctype = "multipart/form-data">
+			<label>Upload Database File</label>
+            <div class="input-group">
+                <input type="file" name=file class="form-control-file" aria-describedby="input" required>
+                <small id="input" class="form-text text-muted">Database File</small>
+            </div>
+            <button class="btn btn-default" type = "submit">Submit</button>
+        </form>
+    </div>
+</div>
+<br/>
+{%endif%}
+<div class = "row">
+	<div class = "col-md-2">
+	
+	</div>
+	
+    <div class = "col-md-1">
+	    <p>Command</p>
+    </div>
+    <form action = "/pi_bulk_input" method = "post" enctype = "multipart/form-data">
+	<div class= "col-md-5">
+		<div class="form-group">
+			<select name = 'command_select' id ='command_select' class='form-control'>
+				{% for line in options.splitlines() %}
+                <option value = {{line}}>{{line}}</option>
+				{% endfor %}
+			</select>
+		</div>
+	</div>
+</div>
+<div class = "row">
+	<div class = "col-md-2">
+    </div>
+    
+    <div class = "col-md-1">
+	    <p>Command List</p>
+		<br/>
+	    
+		<button class="btn-block" value="Clear Input" name = "submit" type = "submit">Clear</button>
+    </div>
+    <div class = "col-md-5">
+		<div class="form-group">
+			<textarea name="commands" class = "form-control" rows = 3 aria-describedby="input"></textarea><br />
+		</div>
+		<button class="btn btn-block" name = "submit" value = "Submit Commands" type = "submit">Submit Command or Command List</button>
+    </div>
+    </form>
+</div>
+<br/>
+<br/>
+<div class = "row">
+    <div class = "col-md-2">
+    </div>
+    <div class = "col-md-1">
+	    <p>Output Log</p>
+	    <br/>
+	    <form action = "/clear_output">
+		<button class="btn-block" value="Clear Output" name = "submit" type = "submit">Clear</button>
+		</form>
+    </div>
+    <div class = "col-md-5">
+		<div class = "monospaced compressed well well-lg" style = "word-wrap: break-word; width: 100%">
+			{% for line in output_content.splitlines() %}
+                {{ line }}<br />
+            {% endfor %}
+            {% for line in parse_return1.splitlines() %}
+                {{ line }}<br />
+            {% endfor %}
+		</div>
+		<form action = "/download_log">
+		<button class="btn btn-block" type = "submit">Download Log File</button>
+		</form>
+    </div>
+
+</div>
+<div class = "row">
+	<div class = "col-md-2">
+	</div>
+	<div class = "col-md-6">
+	<div class = "monospaced compressed well well-lg" style = "word-wrap: break-word; width: 100%">
+	    ProReader is intended for our Friendly Customers to read code from OEM transceivers. It also has the ability for them
+	    to code or make adjustments to the transceiver we ship. It does not require customer to download any software or have
+	    internet access. 
+	</div>
+	</div>
+	
+</div>
+<hr />
+<div class = "row">
+    
+</div>
+{% endblock %}
